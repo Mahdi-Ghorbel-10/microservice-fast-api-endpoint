@@ -18,6 +18,11 @@ def get_heroes(session: Session, skip: int = 0, limit: int = 10) -> list[Hero]:
 def get_hero_by_id(session: Session, hero_id: int) -> Hero | None:
     return session.query(Hero).filter(Hero.id == hero_id).first()
 
+
+# Get a single hero by name
+def get_hero_by_name(session: Session, hero_name: str) -> Hero | None:
+    return session.query(Hero).filter(Hero.name == hero_name).first()
+
 # Update a hero
 def update_hero(session: Session, hero_id: int, hero_data: HeroCreate) -> Hero | None:
     hero = session.query(Hero).filter(Hero.id == hero_id).first()

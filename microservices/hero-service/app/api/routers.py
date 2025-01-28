@@ -4,6 +4,7 @@ from app.crud.crud import (
     create_hero,
     get_heroes,
     get_hero_by_id,
+    get_hero_by_name,
     update_hero,
     delete_hero,
 )
@@ -34,6 +35,14 @@ def get_heroes_endpoint(skip: int = 0, limit: int = 10, db: Session = Depends(ge
 @router.get("/{hero_id}", response_model=HeroResponse)
 def get_hero_endpoint(hero_id: int, db: Session = Depends(get_db)):
     hero = get_hero_by_id(db, hero_id)
+    if not hero:
+        raise HTTPException(status_code=404, detail="Hero not found")
+    return hero
+
+# GET a hero by name 
+@router.get("/name/{hero_name}", response_model=HeroResponse)
+def get_hero_by_name_endpoint(hero_name: str, db: Session = Depends(get_db)):
+    hero = get_hero_by_name(db, hero_name)
     if not hero:
         raise HTTPException(status_code=404, detail="Hero not found")
     return hero

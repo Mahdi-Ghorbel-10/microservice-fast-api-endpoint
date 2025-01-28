@@ -13,7 +13,7 @@ async def create_villain(villain: Villain):
     add_villain(villain)
     return {"message": "Villain added", "villain": villain}
 
-@villain_router.get("/{name}")
+@villain_router.get("/name/{name}")
 async def read_villain(name: str):
     villain = get_villain_by_name(name)
     if not villain:
